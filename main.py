@@ -21,8 +21,8 @@ while True:
   print()
   print("Options:")
   print("1: Copy-paste google spreadsheet data")
-  print("2: Run an example")
-  print("3: Generate an example")
+  print("2: Run an pre-existing example")
+  print("3: Generate and run a random example")
   print("4: Copy-paste raw importable data")
   print()
   option = input("Choose an option (Input a number): ")
@@ -51,11 +51,11 @@ while True:
       print("Generating an example requires further inputs.")
       students_data = generator.GeneratorData()
       students_data.total = int(input("How many total student groups? (Input a number): "))
-      students_data.rankings_count = int(input("How many mentors can the students rank? (Input a number): "))
+      students_data.rankings_count = int(input("How many mentor groups can a student group rank? (Input a number): "))
       mentors_data = generator.GeneratorData()
       mentors_data.total = int(input("How many total mentor groups? (Input a number): "))
-      mentors_data.rankings_count = int(input("How many students can the mentors rank? (Input a number): "))
-      mentors_data.matches_count = int(input("How many students can the mentors take per mentor? (Input a number): "))
+      mentors_data.rankings_count = int(input("How many student groups can a mentor group rank? (Input a number): "))
+      mentors_data.matches_count = int(input("How many student groups can a mentor group take on? (Input a number): "))
       data = generator.generate(students_data, mentors_data)
       option = input("Do you want to see generated data? [y/n]: ")
       print()
@@ -98,6 +98,3 @@ while True:
       print()
       if option == "y":
         run(students, mentors)
-
-
-
