@@ -1,0 +1,72 @@
+import data
+import generator
+from run import run
+
+print("This tool will handle the following (in order):")
+print("1. Pair up mentors and students in preference order if they have each other in their ranked list.")
+print("At this point no more mentors/students with mutual rankings exist.")
+print("2. Pair up mentors and students with students' preference order. Forcefully pair a mentor to the students' preference.")
+print("At this point the students' preferences are all taken.")
+print("3. Pair up mentors and students with mentors' preference order. Forcefully pair up a student to the mentors' preference.")
+print("At this point everyone's preferences can be as met as possible. Unfortunately whoever is left could not find who they want or be wanted.")
+print("4. Randomly pair up the remaining groups.")
+while True:
+  print()
+  print("### Semi Stable Marriage - yuwilbur ###")
+  print()
+  print("Options:")
+  print("1: Run imported data (Requires pasting)")
+  print("2: Run an example")
+  print("3: Generate an example")
+  print("4: Convert google spreadsheet to serialized data")
+  print()
+  option = input("Choose an option (Input a number): ")
+  print()
+  if option == "1":
+    students_data = input("Paste serialized students data: ")
+    print()
+    mentors_data = input("Paste serialized mentors data: ")
+    print()
+    run(students_data, mentors_data)
+  elif option == "2":
+    print("Select example:")
+    print("1: Simple")
+    print("2: Complex")
+    option = input("Select an example (Input a number): ")
+    print()
+    if option == "1":
+      print()
+      print("Running simple example...")
+      print()
+      run(data.simple_students, data.simple_mentors) 
+    elif option == "2":
+      print()
+      print("Running complex example...")
+      print()
+      run(data.complex_students, data.complex_mentors) 
+  elif option == "3":
+      print("Generating an example requires further inputs.")
+      students_data = generator.GeneratorData()
+      students_data.total = int(input("How many total student groups? (Input a number): "))
+      students_data.rankings_count = int(input("How many mentors can the students rank? (Input a number): "))
+      mentors_data = generator.GeneratorData()
+      mentors_data.total = int(input("How many total mentor groups? (Input a number): "))
+      mentors_data.rankings_count = int(input("How many students can the mentors rank? (Input a number): "))
+      mentors_data.matches_count = int(input("How many students can the mentors take per mentor? (Input a number): "))
+      data = generator.generate(students_data, mentors_data)
+      option = input("Do you want to see generated data? [y/n]: ")
+      print()
+      if option == "y":
+        print("Students Data:")
+        print()
+        print(data["students"])
+        print()
+        print("Mentors Data:")
+        print()
+        print(data["mentors"])
+        print()
+      option = input("Do you want to run generated data? [y/n]: ")
+      print()
+      if option == "y":
+        run(data["students"], data["mentors"])
+

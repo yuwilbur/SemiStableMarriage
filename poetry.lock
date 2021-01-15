@@ -1,0 +1,16 @@
+[[package]]
+category = "main"
+description = "A grab-bag of utility functions and objects"
+name = "utils"
+optional = false
+python-versions = ">=3.6"
+version = "1.0.1"
+
+[metadata]
+content-hash = "c229631bb3063a781526cdd2f17fc901501582d4bc49a1d84b19135d72ba624b"
+python-versions = "^3.8"
+
+[metadata.files]
+utils = [
+    {file = "utils-1.0.1-py2.py3-none-any.whl", hash = "sha256:ff04549b95deb2fd7a82ddaea077e2f41209079e2482df231c358770b27b72a7"},
+]
