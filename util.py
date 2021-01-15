@@ -65,7 +65,7 @@ def serialize_group(group):
     person_serialized = {}
     person_serialized['index'] = person.index
     person_serialized['ranking'] = person.ranking
-    person_serialized['matches'] = person.matches
+    person_serialized['total_matches'] = person.matches
     group_list.append(person_serialized)
   result['list'] = group_list
   return str(result)
@@ -75,7 +75,7 @@ def deserialize_group(serialized):
   result = Group(deserialized['name'])
   group_list = []
   for person in deserialized['list']:
-    person_deserialized = Person(person['index'], person['ranking'], person['matches'])
+    person_deserialized = Person(person['index'], person['ranking'], person['total_matches'])
     group_list.append(person_deserialized)
   result.list = group_list
   return result

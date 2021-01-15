@@ -26,10 +26,18 @@ def find_person(group_list, index):
   print("Impossible")
 
 # Perform stable marriage on unmatched proposers
+# This algorithm ensures people who rank each other highly get paired up and does best-effort to pair up the rest.
+#
+# This works by having all proposers propose to their most desired and available person (receiver).
+# Then the receiver looks at all their proposals (including current partners) and pick the best proposer (this might include breaking up with current partner!).
+# The remaining or new single proposers will now repeat the process with single receivers.
+# Continue this loop until no more matches are possible.
 def stable_marriage(proposers, receivers):
+    # Keep matchin until no more movement
     previous_proposers = ""
     while not previous_proposers == serialize_group_list(proposers):
         previous_proposers = serialize_group_list(proposers)
+        # sort by least matched so they have a higher chance of being matched
         proposers.sort(key=sort_by_matched)
         receivers.sort(key=sort_by_matched)
         for proposer in proposers:
@@ -58,6 +66,9 @@ def stable_marriage(proposers, receivers):
             receiver.likedBy = []
 
 # Perform unstable marriage on unmatched proposers
+# This algorithm will have all proposers propose to their most desired and available person (1 proposal).
+# If a receiver has multiple proposals, they will randomly pick one partner.
+# Single proposers continue this loop until none of their preferences are left.
 def unstable_marriage(proposers, receivers):
     previous_proposers = ""
     while not previous_proposers == serialize_group_list(proposers):
@@ -91,6 +102,7 @@ def unstable_marriage(proposers, receivers):
             receiver.likedBy = []
 
 # Perform random marriages on unmatched proposers
+# Randomly match up proposers with receivers.
 def random_marriage(proposers, receivers):
   remaining_proposers = []
   for proposer in proposers:

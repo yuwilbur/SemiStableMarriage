@@ -1,6 +1,7 @@
-import data
+import examples
 import generator
 from run import run
+from reader import read
 
 print("This tool will handle the following (in order):")
 print("1. Pair up mentors and students in preference order if they have each other in their ranked list.")
@@ -10,19 +11,23 @@ print("At this point the students' preferences are all taken.")
 print("3. Pair up mentors and students with mentors' preference order. Forcefully pair up a student to the mentors' preference.")
 print("At this point everyone's preferences can be as met as possible. Unfortunately whoever is left could not find who they want or be wanted.")
 print("4. Randomly pair up the remaining groups.")
+print()
+print("NOTE: This tool handles a mentor handling multiple students but it does NOT handle a situation where a student has multiple mentors.")
 while True:
   print()
   print("### Semi Stable Marriage - yuwilbur ###")
+  print("- See examples.py for what an importable data looks like")
+  print("- Generate an example to create an importable data")
   print()
   print("Options:")
-  print("1: Run imported data (Requires pasting)")
+  print("1: Copy-paste google spreadsheet data")
   print("2: Run an example")
   print("3: Generate an example")
-  print("4: Convert google spreadsheet to serialized data")
+  print("4: Copy-paste raw importable data")
   print()
   option = input("Choose an option (Input a number): ")
   print()
-  if option == "1":
+  if option == "4":
     students_data = input("Paste serialized students data: ")
     print()
     mentors_data = input("Paste serialized mentors data: ")
@@ -35,15 +40,13 @@ while True:
     option = input("Select an example (Input a number): ")
     print()
     if option == "1":
-      print()
       print("Running simple example...")
       print()
-      run(data.simple_students, data.simple_mentors) 
+      run(examples.simple_students, examples.simple_mentors) 
     elif option == "2":
-      print()
       print("Running complex example...")
       print()
-      run(data.complex_students, data.complex_mentors) 
+      run(examples.complex_students, examples.complex_mentors) 
   elif option == "3":
       print("Generating an example requires further inputs.")
       students_data = generator.GeneratorData()
@@ -69,4 +72,32 @@ while True:
       print()
       if option == "y":
         run(data["students"], data["mentors"])
+  elif option == "1":
+      print("To use this option, you'll need to format your spreadsheet correctly:")
+      print("<team #>, <matches allowed>, <rank #1>, <rank #2>, <rank #3>, ...")
+      print()
+      print("Example:")
+      print("Student Team #2 with 1 > 4 > 3")
+      print("Mentor Team #1 with rank 2 > 4 > 6 and can handle 3 student groups")
+      print("Mentor Team #4 with rank 1 > 3 > 5 and can handle 1 student group")
+      print()
+      print("Student's spreadsheet copy-paste (TITLE IS NOT REQUIRED) :")
+      print("2 1 1 4 3")
+      print()
+      print("Mentor's spreadsheet copy-paste (TITLE IS NOT REQUIRED) :")
+      print("1 3 2 4 6")
+      print("4 1 1 3 5")
+      print()
+      print("NOTICE: Student's <matches allowed> must be 1")
+      print()
+      students = read("Students")
+      print()
+      mentors = read("Mentors")
+      print()
+      option = input("Run with this data? [y/n]: ")
+      print()
+      if option == "y":
+        run(students, mentors)
+
+
 

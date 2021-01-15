@@ -1,4 +1,4 @@
-from util import print_group, sort_by_id, deserialize_group
+from util import print_group, sort_by_id, deserialize_group, serialize_group
 from marriages import stable_marriage, unstable_marriage, random_marriage
 
 def run(students, mentors):
@@ -51,8 +51,8 @@ def run(students, mentors):
         for key, value in result_list.items():
             print(str(key) + " > " + str(value))
 
-    show_calculations = False
-    if show_calculations:
+    debug = False
+    if debug:
         print("### CALCULATIONS ###")
         print("WELL PAIRED")
         printResult(well_paired)
@@ -63,6 +63,9 @@ def run(students, mentors):
         print("RANDOMLY PAIRED")
         printResult(randomly_paired)
         print()
+        print(serialize_group(students))
+        print()
+        print(serialize_group(mentors))
     print("### RESULTS ###")
     for mentor in mentors.list:
         print("Mentor Team " + str(mentor.index) + " -> " + "Student Teams " +
